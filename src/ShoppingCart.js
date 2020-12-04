@@ -6,9 +6,9 @@ module.exports = class ShoppingCart {
         this.items = [];
     }
 
-    // price should be in cents using an integer due to floats producing inaccuracies
-    addProduct(name, price, quantity) {
-        let newProduct = new Product(name, price, quantity);
+    // price input in cents using an integer due to floats producing inaccuracies
+    addProduct(name, price) {
+        let newProduct = new Product(name, price);
         this.items.push(newProduct);
     }
 
@@ -19,12 +19,6 @@ module.exports = class ShoppingCart {
         }
     }
 
-    roundTwoDecimals(num) {
-        let multiplied = num * 100;
-        let rounded =  Math.round(multiplied)
-        return rounded / 100;
-    }
-
     calculateTotal() {
         let total = 0;
         this.items.forEach(item => {
@@ -32,10 +26,6 @@ module.exports = class ShoppingCart {
             total += cost
         })
         return Math.round(total) / 100;
-    }
-
-    convertToCurrency(num) {
-        return `$${num / 100}`
     }
 
     calculateSalesTax() {

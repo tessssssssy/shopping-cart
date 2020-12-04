@@ -12,30 +12,29 @@ describe('ShoppingCart constructor', () => {
 describe('addProduct', () => {
   it('creates a product instance', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
     expect(cart.items[0]).toBeInstanceOf(Product);
   });
 
   it('creates a product with the correct attributes', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
     expect(cart.items[0].name).toEqual('Shower Gel');
     expect(cart.items[0].price).toEqual(4999);
-    expect(cart.items[0].quantity).toEqual(5);
   });
 });
 
 describe('addQuantity', () => {
-  it('adds extra quantity to existing product', () => {
+  it('adds quantity to a product', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
     cart.addQuantity('Shower Gel', 5);
-    expect(cart.items[0].quantity).toEqual(10);
+    expect(cart.items[0].quantity).toEqual(5);
   });
 
   it('Does not try to add quantity if product does not exist', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
     expect(() => cart.addQuantity('Cat', 1)).not.toThrow()
   });
 });
@@ -43,7 +42,8 @@ describe('addQuantity', () => {
 describe('calculateTotal', () => {
   it('calculates the total cost before sales tax', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
+    cart.addQuantity('Shower Gel', 5);
     expect(cart.calculateTotal()).toEqual(249.95)
   });
 });
@@ -51,7 +51,8 @@ describe('calculateTotal', () => {
 describe('calculateSalesTax', () => {
   it('calculates the sales tax to be added', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
+    cart.addQuantity('Shower Gel', 5);
     expect(cart.calculateSalesTax()).toEqual(25)
   });
 });
@@ -59,18 +60,17 @@ describe('calculateSalesTax', () => {
 describe('calculateFinalTotal', () => {
   it('calculates the final total after adding sales tax', () => {
     const cart = new ShoppingCart(10);
-    cart.addProduct('Shower Gel', 4999, 5);
+    cart.addProduct('Shower Gel', 4999);
+    cart.addQuantity('Shower Gel', 5);
     expect(cart.calculateFinalTotal()).toEqual(274.95)
   });
 });
 
-
 // Step 1
-
 describe('Step 1: Add products to shopping cart', () => {
   const cart = new ShoppingCart();
   it('add a product Shower Gel with a unit price of 49.99', () => {
-    cart.addProduct('Shower Gel', 4999, 0);
+    cart.addProduct('Shower Gel', 4999);
     expect(cart.items[0]).toBeInstanceOf(Product);
   });
 
@@ -82,7 +82,6 @@ describe('Step 1: Add products to shopping cart', () => {
   it('The shopping carts total price should equal', () => {
     expect(cart.calculateTotal()).toEqual(249.95)
   });
-
 });
 
 
@@ -91,7 +90,7 @@ describe('Step 1: Add products to shopping cart', () => {
 describe('Step 2: Add additional products of the same type to the shopping cart', () => {
   const cart = new ShoppingCart();
   it('add a product Shower Gel with a unit price of 49.99', () => {
-    cart.addProduct('Shower Gel', 4999, 0);
+    cart.addProduct('Shower Gel', 4999);
     expect(cart.items[0]).toBeInstanceOf(Product);
   });
 
@@ -115,12 +114,12 @@ describe('Step 2: Add additional products of the same type to the shopping cart'
 describe('Step 3: Calculate the tax rate of the shopping cart with multiple items', () => {
   const cart = new ShoppingCart(12.5);
   it('add a product Shower Gel with a unit price of 49.99', () => {
-    cart.addProduct('Shower Gel', 4999, 0);
+    cart.addProduct('Shower Gel', 4999);
     expect(cart.items[0]).toBeInstanceOf(Product);
   });
 
   it('add another product Deoderant with a unit price of 99.99', () => {
-    cart.addProduct('Deoderant', 9999, 0);
+    cart.addProduct('Deoderant', 9999);
     expect(cart.items[1]).toBeInstanceOf(Product);
   });
 
